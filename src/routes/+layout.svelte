@@ -1,8 +1,36 @@
 <script lang="ts">
 	import Header from './Header.svelte';
 	import '../app.css';
-	
+	import { DatabaseManager, p } from 'pocketto';
+	import PouchDB from 'pouchdb-browser';
+	import adapter from 'pouchdb-adapter-indexeddb';
+
 	let { children } = $props();
+
+	PouchDB.plugin(adapter);
+
+	p.setEnvironment('browser');
+	p.setIdMethod('timestamp');
+	DatabaseManager.connect('default', {
+		dbName: 'default',
+		adapter: 'idb'
+	}).then(async (localDb) => {
+		try {
+			const remoteDb = await DatabaseManager.connect('http://localhost:5984/test', {
+				dbName: 'test',
+				adapter: 'http',
+				auth: {
+					username: 'admin',
+					password: 'qwer1234'
+				}
+			});
+			localDb.sync(remoteDb, {
+				live: true,
+				retry: true
+			});
+			p.setRealtime(true);
+		} catch (error) {}
+	});
 </script>
 
 <div class="app">
