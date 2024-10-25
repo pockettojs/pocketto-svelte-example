@@ -39,7 +39,6 @@
 		"clsx": "^2.1.1",
 		"events": "^3.3.0",
 		"pocketto": "^0.1.7",
-		"pouchdb-adapter-indexeddb": "^9.0.0",
 		"tailwind-merge": "^2.5.4"
 	}
 }

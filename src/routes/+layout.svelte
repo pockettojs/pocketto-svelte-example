@@ -2,12 +2,8 @@
 	import Header from './Header.svelte';
 	import '../app.css';
 	import { DatabaseManager, p } from 'pocketto';
-	import PouchDB from 'pouchdb-browser';
-	import adapter from 'pouchdb-adapter-indexeddb';
 
 	let { children } = $props();
-
-	PouchDB.plugin(adapter);
 
 	p.setEnvironment('browser');
 	p.setIdMethod('timestamp');
@@ -24,7 +20,7 @@
 					password: 'qwer1234'
 				}
 			});
-			localDb.sync(remoteDb, {
+			localDb?.sync(remoteDb, {
 				live: true,
 				retry: true
 			});
