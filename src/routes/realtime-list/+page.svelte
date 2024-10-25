@@ -6,15 +6,12 @@
 	import { onDestroy } from 'svelte';
 	import { useRealtimeList } from '../../hooks/useRealtimeList';
 
-	const subscriber = useRealtimeList(SalesInvoice);
 	let salesInvoices = [] as SalesInvoice[];
+	const subscriber = useRealtimeList(SalesInvoice);
 	const unsubscribe = subscriber.subscribe((value) => {
 		salesInvoices = value;
 	});
-
-	onDestroy(() => {
-		unsubscribe();
-	});
+	onDestroy(unsubscribe);
 
 	function getPaidColor(percentage: number) {
 		if (percentage >= 50) {
@@ -57,12 +54,12 @@
 		<div class="flex justify-end gap-4">
 			<a
 				href="/realtime/new"
-				class="my-4 bg-svelte-500 hover:no-underline hover:bg-svelte-900 text-white active:scale-90 font-medium py-2 px-4 rounded"
+				class="my-4 bg-svelte-500 hover:no-underline hover:bg-svelte-700 text-white active:scale-90 font-medium py-2 px-4 rounded"
 			>
 				Add New
 			</a>
 			<button
-				class="my-4 bg-svelte-500 hover:bg-svelte-900 text-white active:scale-90 font-medium py-2 px-4 rounded"
+				class="my-4 bg-svelte-500 hover:bg-svelte-700 text-white active:scale-90 font-medium py-2 px-4 rounded"
 				on:click={() => createFakeInvoice()}
 			>
 				Create Fake Data
