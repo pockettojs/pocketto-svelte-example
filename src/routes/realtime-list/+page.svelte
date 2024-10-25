@@ -73,22 +73,28 @@
 			<table width="100%">
 				<thead>
 					<tr>
-						<th width="5%" class="rounded-tl-md bg-svelte-500 text-white font-medium px-4 py-2"
+						<th
+							style="width: 5%"
+							class="rounded-tl-md bg-svelte-500 text-white font-medium px-4 py-2"
 						></th>
-						<th width="30%" class="bg-svelte-500 text-white font-medium px-4 py-2">Customer Name</th
+						<th style="width: 30%" class="bg-svelte-500 text-white font-medium px-4 py-2">
+							Customer Name
+						</th>
+						<th style="width: 15%" class="bg-svelte-500 text-white font-medium px-4 py-2">
+							<div class="text-right">Subtotal</div>
+						</th>
+						<th style="width: 10%" class="bg-svelte-500 text-white font-medium px-4 py-2">
+							<div class="text-right">Tax</div>
+						</th>
+						<th style="width: 15%" class="bg-svelte-500 text-white font-medium px-4 py-2">
+							<div class="text-right">Total</div>
+						</th>
+						<th
+							style="width: 20%"
+							class="rounded-tr-md bg-svelte-500 text-white font-medium px-4 py-2"
 						>
-						<th width="15%" class="bg-svelte-500 text-white font-medium px-4 py-2"
-							><div class="text-right">Subtotal</div></th
-						>
-						<th width="10%" class="bg-svelte-500 text-white font-medium px-4 py-2"
-							><div class="text-right">Tax</div></th
-						>
-						<th width="15%" class="bg-svelte-500 text-white font-medium px-4 py-2"
-							><div class="text-right">Total</div></th
-						>
-						<th width="20%" class="rounded-tr-md bg-svelte-500 text-white font-medium px-4 py-2"
-							><div class="text-right">Paid Amount</div></th
-						>
+							<div class="text-right">Paid Amount</div>
+						</th>
 					</tr>
 				</thead>
 			</table>
@@ -100,8 +106,7 @@
 							<tr
 								class="bg-transparent hover:bg-gray-200 text-gray-800 border-b border-slate-300 cursor-pointer"
 								on:click={() => {
-									createFakeInvoice(invoice.id);
-									// window.location.href = `/realtime/${invoice.id}`;
+									window.location.href = `/realtime/${invoice.id}`;
 								}}
 							>
 								<td width="5%" class="pt-4 px-4 py-2">
