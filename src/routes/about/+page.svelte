@@ -23,4 +23,23 @@
 		The <a href="/sverdle">Sverdle</a> page illustrates SvelteKit's data loading and form handling. Try
 		using it with JavaScript disabled!
 	</p>
+
+	<div class="h-8"></div>
+
+	<h1>Pocketto integration</h1>
+
+	<p>
+		<a href="https://pocketto.dev">Pocketto</a> is a framework for SvelteKit that allows you to create
+		real time data binding with your SvelteKit app.
+	</p>
+
+	<p>You can install it by running:</p>
+
+	<pre>npm install pocketto pocketto-svelte</pre>
+
+	<p>
+		And refer to the <a href="https://pocketto.dev/docs/frontend-api/pocketto-svelte"
+			>documentation</a
+		> to learn more!
+	</p>
 </div>

@@ -46,7 +46,7 @@
 </script>
 
 <svelte:head>
-	<title>Item List Example</title>
+	<title>Demo Real Time List</title>
 	<meta name="description" content="About this app" />
 </svelte:head>
 

@@ -27,7 +27,7 @@
 </script>
 
 <svelte:head>
-	<title>Item Example</title>
+	<title>Demo Real Time Item</title>
 	<meta name="description" content="About this app" />
 </svelte:head>
 
