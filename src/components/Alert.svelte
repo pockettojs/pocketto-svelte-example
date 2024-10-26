@@ -1,8 +1,10 @@
 <script lang="ts">
 	import { cn } from '../utils/cn';
+	import { fly } from 'svelte/transition';
 
 	export let type: 'success' | 'error' | 'warning' | 'info';
 	export let title: string;
+	const duration = 500;
 </script>
 
 <div
@@ -14,6 +16,7 @@
 		type === 'info' && 'bg-info',
 		!type && 'bg-info'
 	)}
+	transition:fly={{ delay: 300, y: -200, duration }}
 >
 	<div class="flex flex-row">
 		<slot name="icon"></slot>
