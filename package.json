@@ -38,6 +38,7 @@
 		"@faker-js/faker": "^9.0.3",
 		"clsx": "^2.1.1",
 		"events": "^3.3.0",
+		"lucide-svelte": "^0.453.0",
 		"pocketto": "^0.1.7",
 		"tailwind-merge": "^2.5.4"
 	}

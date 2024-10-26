@@ -15,6 +15,8 @@ export function useRealtime<T extends BaseModel>(type: ModelStatic<T>, id?: stri
   })
 
   onDocChange(async (newId) => {
+    const modelName = new type().getClass().collectionName as string + '.';
+    newId = newId.replace(modelName, '');
     if (newId !== id) return;
     const doc = await new type().getClass().find(id);
     if (!doc) return;

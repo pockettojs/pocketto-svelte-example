@@ -5,14 +5,29 @@
 	import type { PageData } from './$types';
 	import { cn } from '../../../utils/cn';
 	import { formatNumber } from '../../../utils/number';
+	import BackButton from '../../../components/BackButton.svelte';
 
 	let invoice: SalesInvoice;
+	let rev: string;
+	let saved: boolean = false;
+	let beingUpdated: boolean = false;
 	export let data: PageData;
 	const subscriber = useRealtime(SalesInvoice, data.id);
 	const unsubscribe = subscriber.subscribe((value) => {
+		console.log('value: ', value);
 		invoice = value;
+		if (rev) {
+			console.log('saved');
+		}
+		rev = value._meta._rev;
 	});
 	onDestroy(unsubscribe);
+
+	$: if (invoice._meta._rev !== rev && rev && invoice._meta._rev && !saved) {
+		console.log('being updated');
+		beingUpdated = true;
+		setTimeout(() => (beingUpdated = false), 3000);
+	}
 </script>
 
 <svelte:head>
@@ -24,9 +39,14 @@
 	<div class="flex justify-between">
 		<div class="text-2xl font-semibold">{data.id ? 'Update invoice' : 'Create new invoice'}</div>
 		<div class="flex flex-row gap-4">
+			<BackButton></BackButton>
 			<button
 				class="my-4 bg-svelte-500 hover:bg-svelte-700 text-white active:scale-90 font-medium py-2 px-4 rounded"
-				on:click={() => invoice.save()}
+				on:click={async () => {
+					await invoice.save();
+					saved = true;
+					setTimeout(() => (saved = false), 3000);
+				}}
 			>
 				Save
 			</button>
