@@ -6,9 +6,16 @@
 	import { onDestroy } from 'svelte';
 	import { goto } from '$app/navigation';
 	import { useRealtimeList } from 'pocketto-svelte';
+	import HightlightableTr from '../../components/HightlightableTr.svelte';
 
 	let salesInvoices = [] as SalesInvoice[];
-	const subscriber = useRealtimeList(SalesInvoice);
+	let changedItem: SalesInvoice | undefined;
+	const subscriber = useRealtimeList(SalesInvoice, {
+		animationDelay: 1000,
+		onItemChange: (item) => {
+			changedItem = item;
+		}
+	});
 	const unsubscribe = subscriber.subscribe((value) => {
 		salesInvoices = value;
 	});
@@ -101,11 +108,13 @@
 				<table width="100%">
 					<tbody>
 						{#each salesInvoices as invoice}
-							<tr
-								class="bg-transparent hover:bg-gray-200 text-gray-800 border-b border-slate-300 cursor-pointer"
+							<HightlightableTr
+								start={changedItem?.id === invoice.id}
+								className="bg-transparent hover:bg-gray-200 text-gray-800 border-b border-slate-300 cursor-pointer"
 								on:click={() => {
 									goto(`/realtime/${invoice.id}`);
 								}}
+								color={'#F89A77'}
 							>
 								<td width="5%" class="pt-4 px-4 py-2">
 									<div style="background-color: {invoice.color}" class="w-4 h-4 rounded-full"></div>
@@ -135,7 +144,7 @@
 										<div class="text-right">{formatNumber(invoice.paidAmount)}</div>
 									</div>
 								</td>
-							</tr>
+							</HightlightableTr>
 						{/each}
 					</tbody>
 				</table>
