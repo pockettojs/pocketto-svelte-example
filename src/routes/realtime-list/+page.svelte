@@ -5,6 +5,7 @@
 	import { cn } from '../../utils/cn';
 	import { onDestroy } from 'svelte';
 	import { useRealtimeList } from '../../hooks/useRealtimeList';
+	import { goto } from '$app/navigation';
 
 	let salesInvoices = [] as SalesInvoice[];
 	const subscriber = useRealtimeList(SalesInvoice);
@@ -103,7 +104,7 @@
 							<tr
 								class="bg-transparent hover:bg-gray-200 text-gray-800 border-b border-slate-300 cursor-pointer"
 								on:click={() => {
-									window.location.href = `/realtime/${invoice.id}`;
+									goto(`/realtime/${invoice.id}`);
 								}}
 							>
 								<td width="5%" class="pt-4 px-4 py-2">
