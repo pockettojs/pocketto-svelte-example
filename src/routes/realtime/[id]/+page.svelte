@@ -17,11 +17,11 @@
 	const subscriber = useRealtime(SalesInvoice, data.id);
 	const unsubscribe = subscriber.subscribe((value) => {
 		invoice = value;
-		if (invoice._meta._rev !== rev && rev && invoice._meta._rev && !saved) {
+		if (invoice.rev !== rev && rev && invoice.rev && !saved) {
 			beingUpdated = true;
 			setTimeout(() => (beingUpdated = false), 3000);
 		}
-		rev = value._meta._rev;
+		rev = value.rev;
 	});
 	onDestroy(unsubscribe);
 </script>
