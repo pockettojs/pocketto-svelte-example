@@ -77,8 +77,7 @@
 			<div class="font-medium text-sm text-slate-500">Customer Name</div>
 			<input
 				class="border border-slate-400 rounded-md px-2 bg-transparent dark:text-slate-100 focus:outline-vue-500 h-12 w-full"
-				on:input={(event) => (invoice.customerName = event.target?.value)}
-				value={invoice.customerName}
+				bind:value={invoice.customerName}
 			/>
 		</div>
 	</div>
@@ -87,13 +86,13 @@
 			<div class="font-medium text-sm text-slate-500">Subtotal Amount</div>
 			<input
 				class="border border-slate-400 rounded-md px-2 bg-transparent dark:text-slate-100 focus:outline-vue-500 h-12 w-full"
-				value={invoice.subtotalAmount}
+				type="number"
+				bind:value={invoice.subtotalAmount}
 				on:input={(event) => {
 					const value = parseFloat(event.target?.value || '');
 					invoice.taxAmount = (value * invoice.taxRate) / 100;
 					const totalAmount = Number(value) + Number(invoice.taxAmount);
 					invoice.totalAmount = totalAmount;
-					invoice.subtotalAmount = event.target?.value;
 				}}
 			/>
 		</div>
@@ -101,13 +100,13 @@
 			<div class="font-medium text-sm text-slate-500">Tax Rate (%)</div>
 			<input
 				class="border border-slate-400 rounded-md px-2 bg-transparent dark:text-slate-100 focus:outline-vue-500 h-12 w-full"
-				value={invoice.taxRate}
+				type="number"
+				bind:value={invoice.taxRate}
 				on:input={(event) => {
 					const value = parseFloat(event.target?.value || '');
 					invoice.taxAmount = (invoice.subtotalAmount * value) / 100;
 					const totalAmount = Number(invoice.subtotalAmount) + Number(invoice.taxAmount);
 					invoice.totalAmount = totalAmount;
-					invoice.taxRate = event.target?.value;
 				}}
 			/>
 		</div>
@@ -138,10 +137,8 @@
 				Number(invoice.paidAmount) > Number(invoice.totalAmount) &&
 					'border-error focus:outline-error'
 			)}
-			on:input={(event) => {
-				invoice.paidAmount = event.target?.value;
-			}}
-			value={invoice.paidAmount}
+			type="number"
+			bind:value={invoice.paidAmount}
 		/>
 		{#if Number(invoice.paidAmount) > Number(invoice.totalAmount)}
 			<div class="text-xs text-error">Paid amount should be less than total amount</div>
