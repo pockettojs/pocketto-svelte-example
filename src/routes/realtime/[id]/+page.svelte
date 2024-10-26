@@ -1,13 +1,13 @@
 <script lang="ts">
 	import { onDestroy } from 'svelte';
 	import { SalesInvoice } from '../../../models/SalesInvoice.p';
-	import { useRealtime } from '../../../hooks/useRealtime';
 	import type { PageData } from './$types';
 	import { cn } from '../../../utils/cn';
 	import { formatNumber } from '../../../utils/number';
 	import BackButton from '../../../components/BackButton.svelte';
 	import Alert from '../../../components/Alert.svelte';
 	import { CheckCircle, InfoIcon } from 'lucide-svelte';
+	import { useRealtime } from 'pocketto-svelte';
 
 	let invoice: SalesInvoice;
 	let rev: string;

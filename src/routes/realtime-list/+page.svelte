@@ -4,8 +4,8 @@
 	import { formatNumber } from '../../utils/number';
 	import { cn } from '../../utils/cn';
 	import { onDestroy } from 'svelte';
-	import { useRealtimeList } from '../../hooks/useRealtimeList';
 	import { goto } from '$app/navigation';
+	import { useRealtimeList } from 'pocketto-svelte';
 
 	let salesInvoices = [] as SalesInvoice[];
 	const subscriber = useRealtimeList(SalesInvoice);
