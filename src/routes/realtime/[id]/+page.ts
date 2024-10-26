@@ -11,7 +11,7 @@ export const prerender = true;
 
 export const load: PageLoad = async ({ params }) => {
   return {
-    id: params.id,
+    id: params.id === 'new' ? undefined : params.id,
   }
 };
 
