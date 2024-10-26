@@ -6,6 +6,8 @@
 	import { cn } from '../../../utils/cn';
 	import { formatNumber } from '../../../utils/number';
 	import BackButton from '../../../components/BackButton.svelte';
+	import Alert from '../../../components/Alert.svelte';
+	import { CheckCircle, InfoIcon } from 'lucide-svelte';
 
 	let invoice: SalesInvoice;
 	let rev: string;
@@ -14,20 +16,14 @@
 	export let data: PageData;
 	const subscriber = useRealtime(SalesInvoice, data.id);
 	const unsubscribe = subscriber.subscribe((value) => {
-		console.log('value: ', value);
 		invoice = value;
-		if (rev) {
-			console.log('saved');
+		if (invoice._meta._rev !== rev && rev && invoice._meta._rev && !saved) {
+			beingUpdated = true;
+			setTimeout(() => (beingUpdated = false), 3000);
 		}
 		rev = value._meta._rev;
 	});
 	onDestroy(unsubscribe);
-
-	$: if (invoice._meta._rev !== rev && rev && invoice._meta._rev && !saved) {
-		console.log('being updated');
-		beingUpdated = true;
-		setTimeout(() => (beingUpdated = false), 3000);
-	}
 </script>
 
 <svelte:head>
@@ -36,10 +32,20 @@
 </svelte:head>
 
 <div>
+	{#if saved}
+		<Alert type="success" title="Invoice is saved!">
+			<CheckCircle class="w-5 h-5 inline-block mr-2 mt-0.5" slot="icon"></CheckCircle>
+		</Alert>
+	{/if}
+	{#if beingUpdated}
+		<Alert type="info" title="Invoice has been updated">
+			<InfoIcon class="w-5 h-5 inline-block mr-2 mt-0.5" slot="icon"></InfoIcon>
+		</Alert>
+	{/if}
 	<div class="flex justify-between">
 		<div class="text-2xl font-semibold">{data.id ? 'Update invoice' : 'Create new invoice'}</div>
 		<div class="flex flex-row gap-4">
-			<BackButton></BackButton>
+			<BackButton />
 			<button
 				class="my-4 bg-svelte-500 hover:bg-svelte-700 text-white active:scale-90 font-medium py-2 px-4 rounded"
 				on:click={async () => {

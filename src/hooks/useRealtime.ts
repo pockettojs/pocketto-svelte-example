@@ -12,7 +12,7 @@ export function useRealtime<T extends BaseModel>(type: ModelStatic<T>, id?: stri
     const doc = await new type().getClass().find(id);
     if (!doc) return;
     data.set(doc as T);
-  })
+  });
 
   onDocChange(async (newId) => {
     const modelName = new type().getClass().collectionName as string + '.';
