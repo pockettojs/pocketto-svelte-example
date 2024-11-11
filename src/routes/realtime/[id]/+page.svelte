@@ -56,6 +56,16 @@
 			>
 				Save
 			</button>
+			<button
+				disabled={!data.id}
+				class="my-4 bg-error text-white active:scale-90 disabled:active:scale-100 disabled:opacity-50 font-medium py-2 px-4 rounded"
+				on:click={async () => {
+					await invoice.delete(true);
+					history.back();
+				}}
+			>
+				Delete
+			</button>
 		</div>
 	</div>
 	<div class="flex flex-row gap-6">
